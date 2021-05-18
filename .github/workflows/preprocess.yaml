@@ -11,15 +11,15 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
-        
+
     - id: files
       uses: jitterbit/get-changed-files@v1
 
     - id: filesfolders
       run: for f in ${{ steps.files.outputs.all }}; do basename $(dirname $f); done | sort | uniq
-      
+
     - name: preprocess
-      run: for ds in ${{steps.filesfolders.outputs.all}}; do touch processed_data/$ds/test.txt; done
+      run: for ds in ${{ steps.filesfolders.outputs.all }}; do touch processed_data/$ds/test.txt; done
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
