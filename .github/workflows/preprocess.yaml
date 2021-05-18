@@ -15,11 +15,11 @@ jobs:
     - id: files
       uses: jitterbit/get-changed-files@v1
 
-    - name: get_changed_data
+    - id: filesfolders
       run: for f in ${{ steps.files.outputs.all }}; do basename $(dirname $f); done | sort | uniq
       
     - name: preprocess
-      run: for ds in ${{steps.get_chaned_data.outputs.result}}; do touch processed_data/$ds/test.txt; done
+      run: for ds in ${{steps.filesfolders.outputs.all}}; do touch processed_data/$ds/test.txt; done
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
